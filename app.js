@@ -18,7 +18,7 @@ const formatTextWordsToHalfBold = text => {
         .join(' ')
 }
 
-const returnTextFromFile = filePath => {
+const getTextFromFile = filePath => {
     try {
         return fs.readFileSync(filePath, 'utf-8')
     } catch (err) {
@@ -36,25 +36,34 @@ const main = () => {
 
         if (!process.argv[2]) throw new Error('You need to specify a text or a file to format.')
 
-        const text = (process.argv[2].endsWith('.txt')) ?
-            returnTextFromFile(process.argv[2]) :
+        let text
+
+        if (shouldSaveInFile(process.argv[2])) {
+            text = (process.argv[4].endsWith('.txt')) ?
+            getTextFromFile(process.argv[4]) :
+            process.argv[4]
+        } else {
+            text = (process.argv[2].endsWith('.txt')) ?
+            getTextFromFile(process.argv[2]) :
             process.argv[2]
+        }
+
         const formattedText = formatTextWordsToHalfBold(text)
 
-        fs.appendFileSync('test.txt', `${formattedText}`)
+        fs.appendFileSync(process.argv[3], `${formattedText}`)
         console.log('The "data to append" was appended to file!')
     } catch (err) {
         console.log('Error while formating text: ', err)
     }
 
 
-    try {
-        console.log(fs.readFileSync('test.txt', 'utf-8'))
-    } catch (err) {
-        console.log('Deu ruim!!!', err)
-    }
+    // try {
+    //     console.log(fs.readFileSync('test.txt', 'utf-8'))
+    // } catch (err) {
+    //     console.log('Deu ruim!!!', err)
+    // }
 }
 
 main()
 
-export { turnHalfInitWordBold, formatTextWordsToHalfBold, shouldSaveInFile }
+export { turnHalfInitWordBold, formatTextWordsToHalfBold }

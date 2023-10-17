@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { turnHalfInitWordBold, formatTextWordsToHalfBold, shouldSaveInFile } from '../app.js'
+import { turnHalfInitWordBold, formatTextWordsToHalfBold } from '../app.js'
 
 describe('turnHalfInitWordBold', () => {
     it('Should turn into bold 50% of word when number of letters is pair', () => {
