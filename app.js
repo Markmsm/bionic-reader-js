@@ -36,22 +36,18 @@ const main = () => {
 
         if (!process.argv[2]) throw new Error('You need to specify a text or a file to format.')
 
-        let text
-
-        if (shouldSaveInFile(process.argv[2])) {
-            text = (process.argv[4].endsWith('.txt')) ?
-            getTextFromFile(process.argv[4]) :
-            process.argv[4]
-        } else {
-            text = (process.argv[2].endsWith('.txt')) ?
-            getTextFromFile(process.argv[2]) :
-            process.argv[2]
-        }
+        const text = (process.argv[process.argv.length - 1].endsWith('.txt')) ?
+            getTextFromFile(process.argv[process.argv.length - 1]) :
+            process.argv[process.argv.length - 1]
 
         const formattedText = formatTextWordsToHalfBold(text)
 
-        fs.appendFileSync(process.argv[3], `${formattedText}`)
-        console.log('The "data to append" was appended to file!')
+        if(shouldSaveInFile(process.argv[2])) {
+            fs.appendFileSync(process.argv[3], `${formattedText}`)
+            console.log('The "data to append" was appended to file!')
+        }
+
+        console.log(formattedText)
     } catch (err) {
         console.log('Error while formating text: ', err)
     }
