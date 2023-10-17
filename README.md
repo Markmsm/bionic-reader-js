@@ -26,9 +26,10 @@ V  - Ter um parâmetro para especificar um arquivo de saída
 
 Como rodar o app:
     Passando um texto como parâmetro:
-        $ node app "meu_texto"
+        $ node app "meu texto"
     Passando um arquivo como parâmetro para leitura:
         $ node app {{FILE_PATH}}
     Passando um arquivo para escrita e um texto:
-        $ node app -s ./new_file.txt "testeeeera de teeeextooooo"
-    
+        $ node app -s {{FILE_TO_SAVE_PATH}} "meu texto"
+    Passando um arquivo para leitura e um para escrita:
+        $ node app -s {{FILE_TO_SAVE_PATH}} {{FILE_TO_READ_PATH}}
