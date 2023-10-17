@@ -32,10 +32,6 @@ const shouldSaveInFile = commandLineArgument => {
 
 const main = () => {
     try {
-        console.log(process.argv)
-
-        if (!process.argv[2]) throw new Error('You need to specify a text or a file to format.')
-
         const text = (process.argv[process.argv.length - 1].endsWith('.txt')) ?
             getTextFromFile(process.argv[process.argv.length - 1]) :
             process.argv[process.argv.length - 1]
@@ -44,20 +40,12 @@ const main = () => {
 
         if(shouldSaveInFile(process.argv[2])) {
             fs.appendFileSync(process.argv[3], `${formattedText}`)
-            console.log('The "data to append" was appended to file!')
         }
 
         console.log(formattedText)
     } catch (err) {
         console.log('Error while formating text: ', err)
     }
-
-
-    // try {
-    //     console.log(fs.readFileSync('test.txt', 'utf-8'))
-    // } catch (err) {
-    //     console.log('Deu ruim!!!', err)
-    // }
 }
 
 main()
