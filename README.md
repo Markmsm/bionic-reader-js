@@ -7,7 +7,7 @@ A aplicação deve:
 
  - Ter um nome decente (criativo)
  - Estar hospedada no github
-V - Ler a partir do stdin.
+ - Ler a partir do stdin.
     Exemplo: echo "meu texto aqui" | app
 V - Ler a partir de um arquivo
     Exemplo: app meu_arquivo.txt
@@ -17,7 +17,7 @@ V - Ter um parâmetro para especificar um arquivo de saída
     Exemplo: app -o novo_arquivo.txt meu_texto.txt
 V - Ter um parâmetro para especificar a fixação (% mínimo de negrito por palavra)
     Exemplo: app -f 70 meu_texto.txt
- - Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um negrito)
+V - Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um negrito)
     Exemplo: app -j 2 meu_texto.txt
 
 
@@ -47,9 +47,3 @@ Como rodar o app:
 
 
 
-palavra = 100%
-x       = 50%
-
-100x = 50 * wordlength
-
-x = (50 * wordlength) / 100
