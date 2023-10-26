@@ -7,7 +7,7 @@ A aplicação deve:
 
  - Ter um nome decente (criativo)
  - Estar hospedada no github
- - Ler a partir do stdin.
+V - Ler a partir do stdin.
     Exemplo: echo "meu texto aqui" | app
 V - Ler a partir de um arquivo
     Exemplo: app meu_arquivo.txt
@@ -19,31 +19,3 @@ V - Ter um parâmetro para especificar a fixação (% mínimo de negrito por pal
     Exemplo: app -f 70 meu_texto.txt
 V - Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um negrito)
     Exemplo: app -j 2 meu_texto.txt
-
-
-
-
-
-- Validar melhores maneiras de dividir o texto e juntar novamente
-- Validar com texto com quebra de linha (\n)
-- Validar texto com espaçamento (\t)
-- Validar início de linha ao salvar no arquivo e ler do terminal
-
-- Pode passar vários parâmetros em uma mesma chamada
-
-
-
-
-
-Como rodar o app:
-    Passando um texto como parâmetro:
-        $ node app "meu texto"
-    Passando um arquivo como parâmetro para leitura:
-        $ node app {{FILE_PATH}}
-    Passando um arquivo para escrita e um texto:
-        $ node app -s {{FILE_TO_SAVE_PATH}} "meu texto"
-    Passando um arquivo para leitura e um para escrita:
-        $ node app -s {{FILE_TO_SAVE_PATH}} {{FILE_TO_READ_PATH}}
-
-
-
