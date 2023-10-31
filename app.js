@@ -3,6 +3,10 @@ import * as fs from 'fs'
 
 const acceptedParameters = ['-o', '-f', '-j']
 const actionsParameters = new Map()
+const logError = (message, err) => {
+    process.stderr.write(`${message}: ${err}\n`)
+    process.exit()
+}
 
 // Read parameters
 const parameters = process.argv
@@ -24,13 +28,13 @@ if (actionsParameters.has('file to read')) {
     try {
         text = fs.readFileSync(actionsParameters.get('file to read'), 'utf-8')
     } catch (err) {
-        process.stderr.write(`Error reading file: ${err}\n`)
+        logError('Error reading file', err)
     }
 } else {
     try {
         text = fs.readFileSync(0, 'utf-8')
     } catch (err) {
-        process.stderr.write(`Error reading stdin: ${err}\n`)
+        logError('Error reading stdin', err)
     }
 }
 
@@ -65,7 +69,7 @@ if (actionsParameters.has('-o')) {
     try {
         fs.appendFileSync(actionsParameters.get('-o'), formattedText)
     } catch (err) {
-        process.stderr.write(`Error writing in file: ${err}\n`)
+        logError('Error writing in file', err)
     }
 } else {
     process.stdout.write(`\n${formattedText}\n\n`)
