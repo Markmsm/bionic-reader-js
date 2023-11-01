@@ -14,6 +14,19 @@ const parameters = process.argv
 for (let i = 2; i < parameters.length; i++) {
     const parameter = parameters[i]
 
+    if (parameter === '--help') {
+        process.stdout.write(
+            'Usage: app [OPTION]... [VALUE]... [FILE]...\n' +
+            'Format part of text in bold.\n\n' +
+            'With no FILE, input is stdin.\n\n' +
+            '  -f\t\t\t   VALUE is percentage to bold each word (default is 50)\n' +
+            '  -j\t\t\t   VALUE is words to jump (default is 0)\n' +
+            '  -o\t\t\t   VALUE is file to create or write (default is log in terminal)\n' +
+            '      --help\t display this help and exit\n'
+            )
+        process.exit(0)
+    }
+
     if (!acceptedParameters.includes(parameter) && !parameter.endsWith('.txt')) {
         logError("Error reading parameters.\nTry 'node app --help' for more information.")
     }

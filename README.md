@@ -23,3 +23,4 @@ V - Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um 
 V - Validar se passar opção que não existe (Não importa se tiver opções válidas, passou uma inválida, quebra)
   - Não considerar wraps das palavras
   - Se não passar nada no file descriptor, utilizar stdin
+  - Adicionar --help
