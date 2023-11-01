@@ -4,8 +4,8 @@ import * as fs from 'fs'
 const acceptedParameters = ['-o', '-f', '-j']
 const actionsParameters = new Map()
 const logError = (message, err) => {
-    process.stderr.write(`${message}: ${err}\n`)
-    process.exit()
+    process.stderr.write(`${message}${err ? `: ${err}` : ''}\n`)
+    process.exit(1)
 }
 
 // Read parameters
@@ -14,6 +14,10 @@ const parameters = process.argv
 for (let i = 2; i < parameters.length; i++) {
     const parameter = parameters[i]
 
+    if (!acceptedParameters.includes(parameter) && !parameter.endsWith('.txt')) {
+        logError("Error reading parameters.\nTry 'node app --help' for more information.")
+    }
+    
     if (acceptedParameters.includes(parameter)) {
         actionsParameters.set(parameter, parameters[i + 1])
         i++
