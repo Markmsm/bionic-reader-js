@@ -17,12 +17,17 @@ for (let i = 2; i < parameters.length; i++) {
     if (parameter === '--help') {
         process.stdout.write(
             'Usage: app [OPTION]... [VALUE]... [FILE]...\n' +
-            'Format part of text in bold.\n\n' +
+            'Bold part of text in bold.\n\n' +
             'With no FILE, input is stdin.\n\n' +
             '  -f\t\t\t   VALUE is percentage to bold each word (default is 50)\n' +
             '  -j\t\t\t   VALUE is words to jump (default is 0)\n' +
-            '  -o\t\t\t   VALUE is file to create or write (default is log in terminal)\n' +
-            '      --help\t display this help and exit\n'
+            '  -o\t\t\t   VALUE is file path to write or create (default is log in terminal)\n' +
+            '\t\t\t   FILE is file path to read (default is stdin)\n' +
+            '      --help\t display this help and exit\n\n' +
+            'Examples:\n' +
+            'node app -o new_file.txt\tRead from stdin, then save formated text in new_file.txt.\n' +
+            'node app -f 65\t\t\tRead from stdin, then bold 65% of each word of text, then log in terminal.\n' +
+            'node app -j 3 file_to_read.txt\tRead from file_to_read.txt, then bold text skipping 3 words, then log in terminal.\n'
             )
         process.exit(0)
     }
@@ -57,7 +62,7 @@ if (actionsParameters.has('file to read')) {
 
 // Format text
 const percentageToFormat = actionsParameters.get('-f') || 50
-const wordsToJump = Number(actionsParameters.get('-j') || 0)
+const wordsToSkip = Number(actionsParameters.get('-j') || 0)
 const splittedText = text.split(' ')
 
 const formatText = word => {
@@ -66,7 +71,7 @@ const formatText = word => {
     return `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
 }
 
-for (let i = 0; i < splittedText.length; i += (wordsToJump + 1)) {
+for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
     const word = splittedText[i]
     
     if (word.includes('\n')) {
