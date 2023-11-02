@@ -1,0 +1,16 @@
+texto para testar texto
+quebra de linha para testar
+texto       com        vários      espaços
+texto com   tab (tab antes da palavra tab)
+
+
+
+texto. com? pontos!
+
+palavra...      com...
+reticências...  dois...
+
+...reticências ...no ...início
+reticências ... solta
+
+testando e-mail testes@testeeera.com.br

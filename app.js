@@ -61,14 +61,33 @@ if (actionsParameters.has('file to read')) {
 }
 
 // Format text
-const percentageToFormat = actionsParameters.get('-f') || 50
+const percentageToBold = actionsParameters.get('-f') || 50
 const wordsToSkip = Number(actionsParameters.get('-j') || 0)
 const splittedText = text.split(' ')
 
-const formatText = word => {
-    const boldLength = Math.round((word.length * percentageToFormat) / 100)
+const boldWord = word => {
+    if (word === '...') return word
 
-    return `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
+    let ellipsisAtBeginningOfWord = ''
+
+    if (word.startsWith('...')) {
+        ellipsisAtBeginningOfWord = word.slice(0, 3)
+        word = word.slice(3)
+    }
+
+    const regexForPunctuationAtEnd = /[^\w]$/
+    let wordLength = word.length
+
+    if (word.endsWith('...')) {
+        wordLength = word.length - 3
+    } else if (regexForPunctuationAtEnd.test(word)) {
+        wordLength = word.length - 1
+    }
+
+    const boldLength = Math.round((wordLength * percentageToBold) / 100)
+    let formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
+
+    return `${ellipsisAtBeginningOfWord}${formattedWord}`
 }
 
 for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
@@ -77,10 +96,10 @@ for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
     if (word.includes('\n')) {
         splittedText[i] = word
             .split('\n')
-            .map(w => w === '' ? w : formatText(w))
+            .map(w => w === '' ? w : boldWord(w))
             .join('\n')
     } else {
-        splittedText[i] = word === '' ? word : formatText(word)
+        splittedText[i] = word === '' ? word : boldWord(word)
     }
 }
 

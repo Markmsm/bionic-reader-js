@@ -19,7 +19,7 @@ V - Ter um parâmetro para especificar a fixação (% mínimo de negrito por pal
     Exemplo: app -f 70 meu_texto.txt
 V - Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um negrito)
     Exemplo: app -j 2 meu_texto.txt
-  - Não contar pontuação (email deve contar como palavra inteira, mas ponto não)
+V - Não contar pontuação (email deve contar como palavra inteira, mas ponto não)
 V - Validar se passar opção que não existe (Não importa se tiver opções válidas, passou uma inválida, quebra)
   - Não considerar wraps das palavras
   - Se não passar nada no file descriptor, utilizar stdin
