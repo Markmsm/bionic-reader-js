@@ -28,14 +28,14 @@ for (let i = 2; i < parameters.length; i++) {
             'node app -o new_file.txt\tRead from stdin, then save formated text in new_file.txt.\n' +
             'node app -f 65\t\t\tRead from stdin, then bold 65% of each word of text, then log in terminal.\n' +
             'node app -j 3 file_to_read.txt\tRead from file_to_read.txt, then bold text skipping 3 words, then log in terminal.\n'
-            )
+        )
         process.exit(0)
     }
 
     if (!acceptedParameters.includes(parameter) && !parameter.endsWith('.txt')) {
         logError("Error reading parameters.\nTry 'node app --help' for more information.")
     }
-    
+
     if (acceptedParameters.includes(parameter)) {
         actionsParameters.set(parameter, parameters[i + 1])
         i++
@@ -44,74 +44,79 @@ for (let i = 2; i < parameters.length; i++) {
     }
 }
 
+
+const processText = text => {
+    // Format text
+    const percentageToBold = actionsParameters.get('-f') || 50
+    const wordsToSkip = Number(actionsParameters.get('-j') || 0)
+    const splittedText = text.split(' ')
+
+    const boldWord = word => {
+        if (word === '...') return word
+
+        let ellipsisAtBeginningOfWord = ''
+
+        if (word.startsWith('...')) {
+            ellipsisAtBeginningOfWord = word.slice(0, 3)
+            word = word.slice(3)
+        }
+
+        const regexForPunctuationAtEnd = /[^\w]$/
+        let wordLength = word.length
+
+        if (word.endsWith('...')) {
+            wordLength = word.length - 3
+        } else if (regexForPunctuationAtEnd.test(word)) {
+            wordLength = word.length - 1
+        }
+
+        const boldLength = Math.round((wordLength * percentageToBold) / 100)
+        let formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
+
+        return `${ellipsisAtBeginningOfWord}${formattedWord}`
+    }
+
+    for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
+        const word = splittedText[i]
+
+        if (word.includes('\n')) {
+            splittedText[i] = word
+                .split('\n')
+                .map(w => w === '' ? w : boldWord(w))
+                .join('\n')
+        } else {
+            splittedText[i] = word === '' ? word : boldWord(word)
+        }
+    }
+
+    const formattedText = splittedText.join(' ')
+
+    // Write text
+    if (actionsParameters.has('-o')) {
+        try {
+            fs.appendFileSync(actionsParameters.get('-o'), formattedText)
+        } catch (err) {
+            logError('Error writing in file', err)
+        }
+    } else {
+        process.stdout.write(`\n${formattedText}\n`)
+    }
+}
+
 // Read text
-let text
 if (actionsParameters.has('file to read')) {
     try {
-        text = fs.readFileSync(actionsParameters.get('file to read'), 'utf-8')
+        const fileContent = fs.readFileSync(actionsParameters.get('file to read'), 'utf-8')
+        processText(fileContent)
     } catch (err) {
         logError('Error reading file', err)
     }
 } else {
     try {
-        text = fs.readFileSync(0, 'utf-8')
+        process.stdin.on('data', (data) => {
+            processText(data.toString())
+        })
     } catch (err) {
         logError('Error reading stdin', err)
     }
-}
-
-// Format text
-const percentageToBold = actionsParameters.get('-f') || 50
-const wordsToSkip = Number(actionsParameters.get('-j') || 0)
-const splittedText = text.split(' ')
-
-const boldWord = word => {
-    if (word === '...') return word
-
-    let ellipsisAtBeginningOfWord = ''
-
-    if (word.startsWith('...')) {
-        ellipsisAtBeginningOfWord = word.slice(0, 3)
-        word = word.slice(3)
-    }
-
-    const regexForPunctuationAtEnd = /[^\w]$/
-    let wordLength = word.length
-
-    if (word.endsWith('...')) {
-        wordLength = word.length - 3
-    } else if (regexForPunctuationAtEnd.test(word)) {
-        wordLength = word.length - 1
-    }
-
-    const boldLength = Math.round((wordLength * percentageToBold) / 100)
-    let formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
-
-    return `${ellipsisAtBeginningOfWord}${formattedWord}`
-}
-
-for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
-    const word = splittedText[i]
-    
-    if (word.includes('\n')) {
-        splittedText[i] = word
-            .split('\n')
-            .map(w => w === '' ? w : boldWord(w))
-            .join('\n')
-    } else {
-        splittedText[i] = word === '' ? word : boldWord(word)
-    }
-}
-
-const formattedText = splittedText.join(' ')
-
-// Write text
-if (actionsParameters.has('-o')) {
-    try {
-        fs.appendFileSync(actionsParameters.get('-o'), formattedText)
-    } catch (err) {
-        logError('Error writing in file', err)
-    }
-} else {
-    process.stdout.write(`\n${formattedText}\n\n`)
 }
