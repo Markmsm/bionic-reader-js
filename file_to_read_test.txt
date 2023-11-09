@@ -14,3 +14,7 @@ reticências...  dois...
 reticências ... solta
 
 testando e-mail testes@testeeera.com.br
+
+(texto (com) wrappers) (uma frase com wrapper)
+
+(1) [12] {123} (1234) [1234567890]

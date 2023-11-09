@@ -32,7 +32,7 @@ V - Não contar pontuação (email deve contar como palavra inteira, mas ponto n
 
 V - Validar se passar opção que não existe (Não importa se tiver opções válidas, passou uma inválida, quebra)
 
-  - Não considerar wraps das palavras
+  - Não considerar wrappers das palavras
 
 V - Se não passar nada no file descriptor, utilizar stdin
 
