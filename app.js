@@ -53,21 +53,29 @@ const processText = text => {
     const boldWord = word => {
         if (word === '...') return word
 
+        const regexForPunctuationAtEnd = /[^\w]$/
         let ellipsisAtBeginningOfWord = ''
         let wrapperAtBeginningOfWord = ''
+        let wrapperAtEndingOfWord = ''
+        let wordLength = word.length
 
         if (word.startsWith('(') || word.startsWith('[') || word.startsWith('{')) {
             wrapperAtBeginningOfWord = word.slice(0,1)
             word = word.slice(1)
+            wordLength --
+        }
+
+        if (word.endsWith(')') || word.endsWith(']') || word.endsWith('}')) {
+            wrapperAtEndingOfWord = word.slice(wordLength - 1)
+            word = word.slice(0, wordLength - 1)
+            wordLength --
         }
 
         if (word.startsWith('...')) {
             ellipsisAtBeginningOfWord = word.slice(0, 3)
             word = word.slice(3)
+            wordLength -= 3
         }
-
-        const regexForPunctuationAtEnd = /[^\w]$/
-        let wordLength = word.length
 
         if (word.endsWith('...')) {
             wordLength -= 3
@@ -78,7 +86,7 @@ const processText = text => {
         const boldLength = Math.round((wordLength * percentageToBold) / 100)
         const formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
 
-        return `${wrapperAtBeginningOfWord}${ellipsisAtBeginningOfWord}${formattedWord}`
+        return `${wrapperAtBeginningOfWord}${ellipsisAtBeginningOfWord}${formattedWord}${wrapperAtEndingOfWord}`
     }
 
     for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {

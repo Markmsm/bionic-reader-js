@@ -7,7 +7,7 @@ A aplicação deve:
 
  - Ter um nome decente (criativo)
 
- - Estar hospedada no github
+V - Estar hospedada no github
 
 V - Ler a partir do stdin.
     Exemplo: echo "meu texto aqui" | app
@@ -32,7 +32,7 @@ V - Não contar pontuação (email deve contar como palavra inteira, mas ponto n
 
 V - Validar se passar opção que não existe (Não importa se tiver opções válidas, passou uma inválida, quebra)
 
-  - Não considerar wrappers das palavras
+V - Não considerar wrappers das palavras
 
 V - Se não passar nada no file descriptor, utilizar stdin
 
