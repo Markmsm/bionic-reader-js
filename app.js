@@ -112,7 +112,7 @@ const processText = text => {
             logError('Error writing in file', err)
         }
     } else {
-        process.stdout.write(`\n${formattedText}\n`)
+        process.stdout.write(`${formattedText}`)
     }
 }
 

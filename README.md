@@ -37,3 +37,7 @@ V - Não considerar wrappers das palavras
 V - Se não passar nada no file descriptor, utilizar stdin
 
 V - Adicionar --help
+
+- lógica para reticências (pode estar dentro ou fora dos parênteses)
+
+- testes (como rodar um processo em node através do javascript)
