@@ -1,3 +1,12 @@
+Para rodar os testes
+
+$ cd test/
+
+$ node app.test.js
+
+
+
+
 Prático:
 Escolhe uma linguagem pra fazer o projeto. Não pode ser java nem c#
 Tu vai construir uma aplicação simples de início, pra que a gente possa entender como tu tá. Seguem os requisitos:

@@ -13,6 +13,10 @@ reticências...  dois...
 ...reticências ...no ...início
 reticências ... solta
 
+(...reticências dentro ...dos... parênteses...)
+...(reticências fora dos parênteses)...
+...(...reticências dentro e fora dos parênteses...)...
+
 testando e-mail testes@testeeera.com.br
 
 (texto (com) wrappers) (uma frase com wrapper)
