@@ -103,7 +103,9 @@ const processText = text => {
         }
 
         const boldLength = Math.round((wordLength * percentageToBold) / 100)
-        let formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
+        let formattedWord = actionParameters.has('-o') ?
+            `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}` :
+            `\x1b[1m${word.slice(0, boldLength)}\x1b[0m${word.slice(boldLength)}`
 
         ellipsisAndWrappersWithIndex.reverse()
 
