@@ -54,39 +54,67 @@ const processText = text => {
         if (word === '...') return word
 
         const regexForPunctuationAtEnd = /[^\w]$/
-        let ellipsisAtBeginningOfWord = ''
-        let wrapperAtBeginningOfWord = ''
-        let wrapperAtEndingOfWord = ''
+        const ellipsisAndWrappersWithIndex = []
         let wordLength = word.length
 
+        if (word.startsWith('...')) {
+            const ellipsis = word.slice(0, 3)
+            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: 0 })
+            word = word.slice(3)
+            wordLength -= 3
+        }
+        
         if (word.startsWith('(') || word.startsWith('[') || word.startsWith('{')) {
-            wrapperAtBeginningOfWord = word.slice(0,1)
+            const wrapper = word.slice(0, 1)
+            ellipsisAndWrappersWithIndex.push({ char: wrapper, index: 0 })
             word = word.slice(1)
             wordLength --
         }
-
-        if (word.endsWith(')') || word.endsWith(']') || word.endsWith('}')) {
-            wrapperAtEndingOfWord = word.slice(wordLength - 1)
-            word = word.slice(0, wordLength - 1)
-            wordLength --
-        }
-
+        
         if (word.startsWith('...')) {
-            ellipsisAtBeginningOfWord = word.slice(0, 3)
+            const ellipsis = word.slice(0, 3)
+            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: 0 })
             word = word.slice(3)
             wordLength -= 3
         }
 
         if (word.endsWith('...')) {
+            const ellipsis = word.slice(wordLength - 3)
+            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: word.indexOf(ellipsis) })
+            word = word.slice(0, wordLength - 3)
+            wordLength -= 3
+        }
+
+        if (word.endsWith(')') || word.endsWith(']') || word.endsWith('}')) {
+            const wrapper = word.slice(wordLength - 1)
+            ellipsisAndWrappersWithIndex.push({ char: wrapper, index: word.indexOf(wrapper) })
+            word = word.slice(0, wordLength - 1)
+            wordLength --
+        }
+
+        if (word.endsWith('...')) {
+            const ellipsis = word.slice(wordLength - 3)
+            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: word.indexOf(ellipsis) })
+            word = word.slice(0, wordLength - 3)
             wordLength -= 3
         } else if (regexForPunctuationAtEnd.test(word)) {
             wordLength --
         }
 
         const boldLength = Math.round((wordLength * percentageToBold) / 100)
-        const formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
+        let formattedWord = `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}`
 
-        return `${wrapperAtBeginningOfWord}${ellipsisAtBeginningOfWord}${formattedWord}${wrapperAtEndingOfWord}`
+        ellipsisAndWrappersWithIndex.reverse()
+
+        for (const symbol of ellipsisAndWrappersWithIndex) {
+            if (symbol.index > 0) {
+                formattedWord += symbol.char
+            } else {
+                formattedWord = symbol.char + formattedWord
+            }
+        }
+
+        return `${formattedWord}`
     }
 
     for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
