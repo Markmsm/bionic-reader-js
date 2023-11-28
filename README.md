@@ -1,8 +1,10 @@
 Para rodar os testes
 
-$ cd test/
+    $ npm t
 
-$ node app.test.js
+ou
+
+    $ cd test/ && node app.test.js
 
 
 
