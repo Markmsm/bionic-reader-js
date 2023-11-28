@@ -1,4 +1,5 @@
 import { execSync } from 'child_process'
+import * as fs from 'fs'
 
 
 const failedTests = []
@@ -114,13 +115,36 @@ const shouldBoldHalfEveryWordOfTextFile = () => {
     }
 }
 
+const shouldSaveInFileIfSaveInFileParameter = () => {
+    // Given:
+    const testName = shouldSaveInFileIfSaveInFileParameter.name
+    const textToBold = `boldWord`
+    const expectedResult = `<b>bold</b>Word\n`
+    const newFileName = 'new_file.txt'
+
+    // When:
+    execSync(`echo "${textToBold}" | node ../app -o ${newFileName}`)
+
+    // Then:
+    const newFileContent = fs.readFileSync(newFileName, 'utf-8')
+    
+    if (expectedResult === newFileContent) {
+        logSuccessfulTest(testName)
+    } else {
+        logFailedTest(testName)
+    }
+
+    execSync(`rm ${newFileName}`)
+}
+
 shouldBoldHalfWord()
 shouldBoldTextDisregardingEllipsesAtInitOfPhrase()
 shouldBoldTextDisregardingEllipsesAtEndOfPhrase()
 shouldBoldHalfWordDisregardingEllipsesWithWrappers()
 shouldBoldHalfEveryWordOfTextFile()
+shouldSaveInFileIfSaveInFileParameter()
 
-if(successfulTests) {
+if (successfulTests) {
     for (const testName of successfulTests) {
         process.stderr.write(`\x1b[32m${testName} successful!\x1b[0m\n`)
     }

@@ -2,7 +2,7 @@ import * as fs from 'fs'
 
 
 const acceptedParameters = ['-o', '-f', '-j']
-const actionsParameters = new Map()
+const actionParameters = new Map()
 const logError = (message, err) => {
     process.stderr.write(`${message}${err ? `: ${err}` : ''}\n`)
     process.exit(1)
@@ -37,17 +37,18 @@ for (let i = 2; i < parameters.length; i++) {
     }
 
     if (acceptedParameters.includes(parameter)) {
-        actionsParameters.set(parameter, parameters[i + 1])
+        actionParameters.set(parameter, parameters[i + 1])
         i++
     } else if (parameter.endsWith('.txt')) {
-        actionsParameters.set('file to read', parameter)
+        actionParameters.set('file to read', parameter)
     }
 }
 
+// Format then write text
 const processText = text => {
     // Format text
-    const percentageToBold = actionsParameters.get('-f') || 50
-    const wordsToSkip = Number(actionsParameters.get('-j') || 0)
+    const percentageToBold = actionParameters.get('-f') || 50
+    const wordsToSkip = Number(actionParameters.get('-j') || 0)
     const splittedText = text.split(' ')
 
     const boldWord = word => {
@@ -133,9 +134,9 @@ const processText = text => {
     const formattedText = splittedText.join(' ')
 
     // Write text
-    if (actionsParameters.has('-o')) {
+    if (actionParameters.has('-o')) {
         try {
-            fs.appendFileSync(actionsParameters.get('-o'), formattedText)
+            fs.appendFileSync(actionParameters.get('-o'), formattedText)
         } catch (err) {
             logError('Error writing in file', err)
         }
@@ -145,9 +146,9 @@ const processText = text => {
 }
 
 // Read text
-if (actionsParameters.has('file to read')) {
+if (actionParameters.has('file to read')) {
     try {
-        const fileContent = fs.readFileSync(actionsParameters.get('file to read'), 'utf-8')
+        const fileContent = fs.readFileSync(actionParameters.get('file to read'), 'utf-8')
         processText(fileContent)
     } catch (err) {
         logError('Error reading file', err)
