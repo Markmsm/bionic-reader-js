@@ -61,7 +61,7 @@ const shouldBoldHalfWordDisregardingEllipsesWithWrappers = () => {
     // Given:
     const testName = shouldBoldHalfWordDisregardingEllipsesWithWrappers.name
     const textToBold = `...(...reticências dentro e fora dos parênteses...)...`
-    const expectedResult = `...(...<b>reticê</b>ncias <b>den</b>tro <b>e</b> <b>fo</b>ra <b>do</b>s <b>parên</b>teses...)...`
+    const expectedResult = `...(...<b>reticê</b>ncias <b>den</b>tro <b>e</b> <b>fo</b>ra <b>do</b>s <b>parên</b>teses...)...\n`
 
     // When:
     const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
