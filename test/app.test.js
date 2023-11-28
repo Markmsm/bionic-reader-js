@@ -122,12 +122,12 @@ shouldBoldHalfEveryWordOfTextFile()
 
 if(successfulTests) {
     for (const testName of successfulTests) {
-        process.stderr.write(`${testName} successful!\n`)
+        process.stderr.write(`\x1b[32m${testName} successful!\x1b[0m\n`)
     }
 }
 
 if (failedTests) {
     for (const testName of failedTests) {
-        process.stderr.write(`${testName} failed!\n`)
+        process.stderr.write(`\x1b[31;1m${testName} failed!\x1b[0m\n`)
     }
 }
