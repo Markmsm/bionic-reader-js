@@ -4,6 +4,7 @@ texto       com        vários      espaços
 texto com   tab (tab antes da palavra tab)
 
 
+doisPontosNoFinal.:
 
 texto. com? pontos!
 

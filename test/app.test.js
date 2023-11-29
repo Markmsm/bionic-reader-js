@@ -75,6 +75,40 @@ const shouldBoldHalfWordDisregardingEllipsesWithWrappers = () => {
     }
 }
 
+const shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction = () => {
+    // Given:
+    const testName = shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction.name
+    const wordToBold = 'boldWord.:'
+    const expectedResult = `\x1b[1mboldW\x1b[0mord.:\n`
+
+    // When:
+    const appResult = execSync(`echo "${wordToBold}" | node ../app`).toString()
+    
+    // Then:
+    if (expectedResult === appResult) {
+        logSuccessfulTest(testName)
+    } else {
+        logFailedTest(testName)
+    }
+}
+
+const shouldBoldRegardingEmailAsWord = () => {
+    // Given:
+    const testName = shouldBoldRegardingEmailAsWord.name
+    const textToBold = 'email.teste@emailteste.com'
+    const expectedResult = '\x1b[1memail.teste@e\x1b[0mmailteste.com\n'
+
+    // When:
+    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+
+    // Then:
+    if (expectedResult === appResult) {
+        logSuccessfulTest(testName)
+    } else {
+        logFailedTest(testName)
+    }
+}
+
 const shouldBoldHalfEveryWordOfTextFile = () => {
     // Given:
     const testName = shouldBoldHalfEveryWordOfTextFile.name
@@ -85,6 +119,7 @@ const shouldBoldHalfEveryWordOfTextFile = () => {
 \x1b[1mtex\x1b[0mto \x1b[1mco\x1b[0mm   \x1b[1mta\x1b[0mb (\x1b[1mta\x1b[0mb \x1b[1mant\x1b[0mes \x1b[1md\x1b[0ma \x1b[1mpala\x1b[0mvra \x1b[1mta\x1b[0mb)
 
 
+\x1b[1mdoisPonto\x1b[0msNoFinal.:
 
 \x1b[1mtex\x1b[0mto. \x1b[1mco\x1b[0mm? \x1b[1mpon\x1b[0mtos!
 
@@ -105,7 +140,7 @@ const shouldBoldHalfEveryWordOfTextFile = () => {
 (\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]`
 
     // When:
-    const appResult = execSync(`node ../app ${fileToReadContent}`)
+    const appResult = execSync(`node ../app ${fileToReadContent}`).toString()
 
     // Then:
     if (expectedResult === appResult.toString()) {
@@ -141,6 +176,8 @@ shouldBoldHalfWord()
 shouldBoldTextDisregardingEllipsesAtInitOfPhrase()
 shouldBoldTextDisregardingEllipsesAtEndOfPhrase()
 shouldBoldHalfWordDisregardingEllipsesWithWrappers()
+shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction()
+shouldBoldRegardingEmailAsWord()
 shouldBoldHalfEveryWordOfTextFile()
 shouldSaveInFileIfSaveInFileParameter()
 
