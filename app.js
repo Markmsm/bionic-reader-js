@@ -52,72 +52,35 @@ const processText = text => {
     const splittedText = text.split(' ')
 
     const boldWord = word => {
-        if (word === '...') return word
-
         const regexForPunctuationAtEnd = /[^\w]$/
-        const ellipsisAndWrappersWithIndex = []
-        let wordLength = word.length
+        let punctuationAtEndOfWord = ''
 
         if (word.startsWith('...')) {
-            const ellipsis = word.slice(0, 3)
-            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: 0 })
-            word = word.slice(3)
-            wordLength -= 3
+            return `...${boldWord(word.slice(3))}`
         }
-        
         if (word.startsWith('(') || word.startsWith('[') || word.startsWith('{')) {
-            const wrapper = word.slice(0, 1)
-            ellipsisAndWrappersWithIndex.push({ char: wrapper, index: 0 })
-            word = word.slice(1)
-            wordLength --
+            return `${word.slice(0, 1)}${boldWord(word.slice(1))}`
         }
-        
-        if (word.startsWith('...')) {
-            const ellipsis = word.slice(0, 3)
-            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: 0 })
-            word = word.slice(3)
-            wordLength -= 3
-        }
-
         if (word.endsWith('...')) {
-            const ellipsis = word.slice(wordLength - 3)
-            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: word.indexOf(ellipsis) })
-            word = word.slice(0, wordLength - 3)
-            wordLength -= 3
+            return `${boldWord(word.slice(0, word.length - 3))}...`
         }
-
         if (word.endsWith(')') || word.endsWith(']') || word.endsWith('}')) {
-            const wrapper = word.slice(wordLength - 1)
-            ellipsisAndWrappersWithIndex.push({ char: wrapper, index: word.indexOf(wrapper) })
-            word = word.slice(0, wordLength - 1)
-            wordLength --
+            return `${boldWord(word.slice(0, word.length - 1))}${word.slice(word.length - 1)}`
+        }
+        if (regexForPunctuationAtEnd.test(word)) {
+            punctuationAtEndOfWord = word.slice(word.length - 1)
+            word = word.slice(0, word.length - 1)
         }
 
-        if (word.endsWith('...')) {
-            const ellipsis = word.slice(wordLength - 3)
-            ellipsisAndWrappersWithIndex.push({ char: ellipsis, index: word.indexOf(ellipsis) })
-            word = word.slice(0, wordLength - 3)
-            wordLength -= 3
-        } else if (regexForPunctuationAtEnd.test(word)) {
-            wordLength --
-        }
+        const boldLength = Math.round((word.length * percentageToBold) / 100)
+        const partOfWordToBold = word.slice(0, boldLength)
+        const partOfWordToNotBold = word.slice(boldLength)
+        
+        const boldedWord = actionParameters.has('-o') ?
+            `<b>${partOfWordToBold}</b>${partOfWordToNotBold}` :
+            `\x1b[1m${partOfWordToBold}\x1b[0m${partOfWordToNotBold}`
 
-        const boldLength = Math.round((wordLength * percentageToBold) / 100)
-        let formattedWord = actionParameters.has('-o') ?
-            `<b>${word.slice(0, boldLength)}</b>${word.slice(boldLength)}` :
-            `\x1b[1m${word.slice(0, boldLength)}\x1b[0m${word.slice(boldLength)}`
-
-        ellipsisAndWrappersWithIndex.reverse()
-
-        for (const symbol of ellipsisAndWrappersWithIndex) {
-            if (symbol.index > 0) {
-                formattedWord += symbol.char
-            } else {
-                formattedWord = symbol.char + formattedWord
-            }
-        }
-
-        return `${formattedWord}`
+        return `${boldedWord}${punctuationAtEndOfWord}`
     }
 
     for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
@@ -126,10 +89,10 @@ const processText = text => {
         if (word.includes('\n')) {
             splittedText[i] = word
                 .split('\n')
-                .map(w => w === '' ? w : boldWord(w))
+                .map(w => (w === '' || w === '...') ? w : boldWord(w))
                 .join('\n')
         } else {
-            splittedText[i] = word === '' ? word : boldWord(word)
+            splittedText[i] = (word === '' || word === '...') ? word : boldWord(word)
         }
     }
 

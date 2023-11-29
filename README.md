@@ -49,6 +49,8 @@ V - Se não passar nada no file descriptor, utilizar stdin
 
 V - Adicionar --help
 
-V - X - lógica para reticências (pode estar dentro ou fora dos parênteses) (MELHORAR)
+V - lógica para reticências (pode estar dentro ou fora dos parênteses)
+    V - considerar somente se palavra termina com reticências (considerei o começo tbm)
+    V - recursividade
 
 V - testes (como rodar um processo em node através do javascript)
