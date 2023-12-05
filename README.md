@@ -1,12 +1,11 @@
-Para rodar os testes
-
+### Para rodar os testes:
     $ npm t
 
 ou
 
     $ cd test/ && node app.test.js
 
-Para instalar:
+### Para instalar:
 - Abrir terminal;
 - Navegar até a pasta raiz do projeto;
 - Executar:
@@ -14,65 +13,60 @@ Para instalar:
         $ chmod +x app.sh
         $ ./app.sh
     
-Para desinstalar:
+### Para desinstalar:
 - Abrir um terminal e executar:
         
         $ rm -r $HOME/bionic-reader-js/
         
-- remover a linha do arquivo .bashrc de conteúdo = alias bionicrd="node $HOME/bionic-reader-js/app.js"
-
-
-
-
-
-
+- remover a linha do arquivo .bashrc de conteúdo = <span style="color:orange">**alias bionicrd="node $HOME/bionic-reader-js/app.js"**</span>
 
 
 
 
 Prático:
+
 Escolhe uma linguagem pra fazer o projeto. Não pode ser java nem c#
 Tu vai construir uma aplicação simples de início, pra que a gente possa entender como tu tá. Seguem os requisitos:
 Criar uma aplicação X que recebe um texto e retorna esse texto com partes das palavras em negrito (marcar negrito com caracteres de markdown). Isso se chama bionic reading.
 
 A aplicação deve:
 
- - Ter um nome decente (criativo)
+- [ ] Ter um nome decente (criativo)
 
-V - Estar hospedada no github
+- [x] Estar hospedada no github
 
-V - Ler a partir do stdin.
+- [x] Ler a partir do stdin.
     Exemplo: echo "meu texto aqui" | app
 
-V - Ler a partir de um arquivo
+- [x] Ler a partir de um arquivo
     Exemplo: app meu_arquivo.txt
 
-V - Deixar em negrito os primeiros 50% de cada palavra (no mínimo 50%)
+- [x] Deixar em negrito os primeiros 50% de cada palavra (no mínimo 50%)
 
-V - Retornar texto no stdout
+- [x] Retornar texto no stdout
 
-V - Ter um parâmetro para especificar um arquivo de saída
+- [x] Ter um parâmetro para especificar um arquivo de saída
     Exemplo: app -o novo_arquivo.txt meu_texto.txt
 
-V - Ter um parâmetro para especificar a fixação (% mínimo de negrito por palavra)
+- [x] Ter um parâmetro para especificar a fixação (% mínimo de negrito por palavra)
     Exemplo: app -f 70 meu_texto.txt
 
-V - Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um negrito)
+- [x] Ter um parâmetro para especificar os pulos (a cada quantas palavras tem um negrito)
     Exemplo: app -j 2 meu_texto.txt
 
-V - Não contar pontuação (email deve contar como palavra inteira, mas ponto não)
+- [x] Não contar pontuação (email deve contar como palavra inteira, mas ponto não)
 
-V - Validar se passar opção que não existe (Não importa se tiver opções válidas, passou uma inválida, quebra)
+- [x] Validar se passar opção que não existe (Não importa se tiver opções válidas, passou uma inválida, quebra)
 
-V - Não considerar wrappers das palavras
+- [x] Não considerar wrappers das palavras
 
-V - Se não passar nada no file descriptor, utilizar stdin
+- [x] Se não passar nada no file descriptor, utilizar stdin
 
-V - Adicionar --help
+- [x] Adicionar --help
 
-V - lógica para reticências (pode estar dentro ou fora dos parênteses)
-    V - considerar somente se palavra termina com reticências (considerei o começo tbm)
-    V - recursividade
-     - fazer recursividade sem empilhar operações
+- [x] lógica para reticências (pode estar dentro ou fora dos parênteses)
+    - [x] considerar somente se palavra termina com reticências (considerei o começo tbm)
+    - [x] fazer com recursividade
+    - [ ] fazer recursividade sem empilhar operações
 
-V - testes (como rodar um processo em node através do javascript)
+- [x] testes (como rodar um processo em node através do javascript)
