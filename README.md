@@ -6,6 +6,27 @@ ou
 
     $ cd test/ && node app.test.js
 
+Para instalar:
+- Abrir terminal;
+- Navegar até a pasta raiz do projeto;
+- Executar:
+    
+        $ chmod +x app.sh
+        $ ./app.sh
+    
+Para desinstalar:
+- Abrir um terminal e executar:
+        
+        $ rm -r $HOME/bionic-reader-js/
+        
+- remover a linha do arquivo .bashrc de conteúdo = alias bionicrd="node $HOME/bionic-reader-js/app.js"
+
+
+
+
+
+
+
 
 
 
@@ -52,5 +73,6 @@ V - Adicionar --help
 V - lógica para reticências (pode estar dentro ou fora dos parênteses)
     V - considerar somente se palavra termina com reticências (considerei o começo tbm)
     V - recursividade
+     - fazer recursividade sem empilhar operações
 
 V - testes (como rodar um processo em node através do javascript)
