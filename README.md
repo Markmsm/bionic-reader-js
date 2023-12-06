@@ -67,6 +67,6 @@ A aplicação deve:
 - [x] lógica para reticências (pode estar dentro ou fora dos parênteses)
     - [x] considerar somente se palavra termina com reticências (considerei o começo tbm)
     - [x] fazer com recursividade
-    - [ ] fazer recursividade sem empilhar operações
+    - [x] fazer recursividade sem empilhar operações
 
 - [x] testes (como rodar um processo em node através do javascript)
