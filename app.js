@@ -51,24 +51,27 @@ const processText = text => {
     const wordsToSkip = Number(actionParameters.get('-j') || 0)
     const splittedText = text.split(' ')
 
-    const boldWord = word => {
+    const boldWord = (word, prefix = '', suffix = '') => {
         const regexForPunctuationAtEnd = /[^\w]$/
-        let punctuationAtEndOfWord = ''
 
         if (word.startsWith('...')) {
-            return `...${boldWord(word.slice(3))}`
+            prefix += '...'
+            return boldWord(word.slice(3), prefix)
         }
         if (word.startsWith('(') || word.startsWith('[') || word.startsWith('{')) {
-            return `${word.slice(0, 1)}${boldWord(word.slice(1))}`
+            prefix += word.slice(0, 1)
+            return boldWord(word.slice(1), prefix)
         }
         if (word.endsWith('...')) {
-            return `${boldWord(word.slice(0, word.length - 3))}...`
+            suffix = `...${suffix}`
+            return boldWord(word.slice(0, word.length - 3), prefix, suffix)
         }
         if (word.endsWith(')') || word.endsWith(']') || word.endsWith('}')) {
-            return `${boldWord(word.slice(0, word.length - 1))}${word.slice(word.length - 1)}`
+            suffix = `${word.slice(word.length - 1)}${suffix}`
+            return boldWord(word.slice(0, word.length - 1), prefix, suffix)
         }
         if (regexForPunctuationAtEnd.test(word)) {
-            punctuationAtEndOfWord = word.slice(word.length - 1)
+            suffix = `${word.slice(word.length - 1)}${suffix}`
             word = word.slice(0, word.length - 1)
         }
 
@@ -80,7 +83,7 @@ const processText = text => {
             `<b>${partOfWordToBold}</b>${partOfWordToNotBold}` :
             `\x1b[1m${partOfWordToBold}\x1b[0m${partOfWordToNotBold}`
 
-        return `${boldedWord}${punctuationAtEndOfWord}`
+        return `${prefix}${boldedWord}${suffix}`
     }
 
     for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
