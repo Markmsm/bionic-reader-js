@@ -24,6 +24,40 @@ const shouldBoldHalfWord = () => {
     }
 }
 
+const shouldBoldRegardingEmailAsWord = () => {
+    // Given:
+    const testName = shouldBoldRegardingEmailAsWord.name
+    const textToBold = 'email.teste@emailteste.com'
+    const expectedResult = '\x1b[1memail.teste@e\x1b[0mmailteste.com\n'
+
+    // When:
+    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+
+    // Then:
+    if (expectedResult === appResult) {
+        logSuccessfulTest(testName)
+    } else {
+        logFailedTest(testName)
+    }
+}
+
+const shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction = () => {
+    // Given:
+    const testName = shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction.name
+    const wordToBold = 'boldWord.:'
+    const expectedResult = `\x1b[1mboldW\x1b[0mord.:\n`
+
+    // When:
+    const appResult = execSync(`echo "${wordToBold}" | node ../app`).toString()
+    
+    // Then:
+    if (expectedResult === appResult) {
+        logSuccessfulTest(testName)
+    } else {
+        logFailedTest(testName)
+    }
+}
+
 const shouldBoldTextDisregardingEllipsesAtInitOfPhrase = () => {
     // Given:
     const testName = shouldBoldTextDisregardingEllipsesAtInitOfPhrase.name
@@ -58,6 +92,23 @@ const shouldBoldTextDisregardingEllipsesAtEndOfPhrase = () => {
     }
 }
 
+const shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord = () => {
+    // Given:
+    const testName = shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord.name
+    const textToBold = `...dos...`
+    const expectedResult = `...\x1b[1mdo\x1b[0ms...\n`
+
+    // When:
+    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+
+    // Then:
+    if (expectedResult === appResult.toString()) {
+        logSuccessfulTest(testName)
+    } else {
+        logFailedTest(testName)
+    }
+}
+
 const shouldBoldHalfWordDisregardingEllipsesWithWrappers = () => {
     // Given:
     const testName = shouldBoldHalfWordDisregardingEllipsesWithWrappers.name
@@ -75,28 +126,11 @@ const shouldBoldHalfWordDisregardingEllipsesWithWrappers = () => {
     }
 }
 
-const shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction = () => {
+const shouldBoldDisregardingWrappers = () => {
     // Given:
-    const testName = shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction.name
-    const wordToBold = 'boldWord.:'
-    const expectedResult = `\x1b[1mboldW\x1b[0mord.:\n`
-
-    // When:
-    const appResult = execSync(`echo "${wordToBold}" | node ../app`).toString()
-    
-    // Then:
-    if (expectedResult === appResult) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
-
-const shouldBoldRegardingEmailAsWord = () => {
-    // Given:
-    const testName = shouldBoldRegardingEmailAsWord.name
-    const textToBold = 'email.teste@emailteste.com'
-    const expectedResult = '\x1b[1memail.teste@e\x1b[0mmailteste.com\n'
+    const testName = shouldBoldDisregardingWrappers.name
+    const textToBold = '(1) [12] {123} (1234) [1234567890]'
+    const expectedResult = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]\n'
 
     // When:
     const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
@@ -173,11 +207,13 @@ const shouldSaveInFileIfSaveInFileParameter = () => {
 }
 
 shouldBoldHalfWord()
+shouldBoldRegardingEmailAsWord()
+shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction()
 shouldBoldTextDisregardingEllipsesAtInitOfPhrase()
 shouldBoldTextDisregardingEllipsesAtEndOfPhrase()
+shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord()
 shouldBoldHalfWordDisregardingEllipsesWithWrappers()
-shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction()
-shouldBoldRegardingEmailAsWord()
+shouldBoldDisregardingWrappers()
 shouldBoldHalfEveryWordOfTextFile()
 shouldSaveInFileIfSaveInFileParameter()
 
