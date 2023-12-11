@@ -1,14 +1,23 @@
 import * as http from 'http'
+import { execSync } from 'child_process'
 
 http.createServer((req, res) => {
     if (req.method === 'POST') {
         req.on('data', (data) => {
             const body = data.toString()
-            console.log('body = ', body)
+            
+            console.log('body =', body)
+
+            const boldedText = execSync(`echo "${body}" | node app`).toString()
+
+            console.log('boldedText =', boldedText)
+
             res.writeHead(200, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
-                data: `Hello POST!`,
-                body: body
+                data: {
+                    message: 'Hello POST!',
+                    body: boldedText
+                }
             }))
         })
     } else if (req.method === 'GET') {
