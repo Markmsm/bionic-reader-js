@@ -74,3 +74,4 @@ A aplicação deve:
 - [ ] começar a fazer api http usando http.createServer
 - [ ] fazer com que todas as requisições sejam logadas
 - [ ] essa api vai ter um endpoint [POST] / que recebe o texto pelo body e usa o bionic-reader pra converter
+    - [ ] Deve receber o tipo de arquivo de saída para formatação
