@@ -71,7 +71,7 @@ A aplicação deve:
 - [x] testes (como rodar um processo em node através do javascript)
 
 - [x] fazer função recursiva ser otimizada (não ter chance de stack overflow)
-- [ ] começar a fazer api http usando http.createServer
+- [x] começar a fazer api http usando http.createServer
 - [ ] fazer com que todas as requisições sejam logadas
 - [ ] essa api vai ter um endpoint [POST] / que recebe o texto pelo body e usa o bionic-reader pra converter
     - [ ] Deve receber o tipo de arquivo de saída para formatação
