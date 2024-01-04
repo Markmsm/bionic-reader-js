@@ -1,11 +1,17 @@
-### Para rodar os testes:
+### Para rodar os testes do server.js:
+    $ node server.js
+    $ node test/server.test.js
+
+<span style="color:orange">**Obs:**</span> Após rodar os testes apenas encerrar o server.js ("**CTRL**" + "**C**") no terminal que está rodando.
+
+### Para rodar os testes do app.js:
     $ npm t
 
 ou
 
     $ cd test/ && node app.test.js
 
-### Para instalar:
+### Para instalar o app.js:
 - Abrir terminal;
 - Navegar até a pasta raiz do projeto;
 - Executar:
@@ -13,7 +19,7 @@ ou
         $ chmod +x app.sh
         $ ./app.sh
     
-### Para desinstalar:
+### Para desinstalar o app.js:
 - Abrir um terminal e executar:
         
         $ rm -r $HOME/bionic-reader-js/
