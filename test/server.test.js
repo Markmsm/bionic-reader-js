@@ -89,10 +89,18 @@ testOptions.postData = JSON.stringify({ text: '(1) [12] {123} (1234) [1234567890
 testOptions.expectedBody = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]'
 executeTest(testOptions)
 
-testOptions.testName = 'shouldBoldDisregardingWrappers'
-testOptions.postData = JSON.stringify({ text: '(1) [12] {123} (1234) [1234567890]' })
-testOptions.expectedBody = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]'
+testOptions.testName = 'shouldBoldForTxtFile'
+testOptions.postData = JSON.stringify({
+    text: '(1) [12] {123} (1234) [1234567890]',
+    fileType: 'txt'
+})
+testOptions.expectedBody = '(<b>1</b>) [<b>1</b>2] {<b>12</b>3} (<b>12</b>34) [<b>12345</b>67890]'
 executeTest(testOptions)
 
+// testOptions.testName = 'shouldBoldDisregardingWrappers'
+// testOptions.postData = JSON.stringify({ text: '(1) [12] {123} (1234) [1234567890]' })
+// testOptions.expectedBody = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]'
+
+// executeTest(testOptions)
 //console.log(server.pid)
 //server.kill()
