@@ -3,16 +3,17 @@ import * as http from 'http'
 http.createServer((req, res) => {
     if (req.method === 'POST') {
         req.on('data', (data) => {
-            const body = data.toString()
+            const body = JSON.parse(data)
+            const textToBold = body.text
+            const fileType = body.fileType
 
-            console.log('body =', body)
+            console.log('textToBold =', textToBold)
 
-            // Format text
             // const percentageToBold = actionParameters.get('-f') || 50
             const percentageToBold = 50
             // const wordsToSkip = Number(actionParameters.get('-j') || 0)
             const wordsToSkip = Number(0)
-            const splittedText = body.split(' ')
+            const splittedText = textToBold.split(' ')
 
             const boldWord = (word, prefix = '', suffix = '') => {
                 const regexForPunctuationAtEnd = /[^\w]$/
@@ -41,13 +42,13 @@ http.createServer((req, res) => {
                 const boldLength = Math.round((word.length * percentageToBold) / 100)
                 const partOfWordToBold = word.slice(0, boldLength)
                 const partOfWordToNotBold = word.slice(boldLength)
-
-                // const boldedWord = actionParameters.has('-o') ?
-                const boldedWord = false ?
-                    `<b>${partOfWordToBold}</b>${partOfWordToNotBold}` :
-                    `\x1b[1m${partOfWordToBold}\x1b[0m${partOfWordToNotBold}`
-
-                return `${prefix}${boldedWord}${suffix}`
+                
+                switch (fileType) {
+                    case 'txt':
+                        return `${prefix}<b>${partOfWordToBold}</b>${partOfWordToNotBold}${suffix}`
+                    default:
+                        return `${prefix}\x1b[1m${partOfWordToBold}\x1b[0m${partOfWordToNotBold}${suffix}`
+                }
             }
 
             for (let i = 0; i < splittedText.length; i += (wordsToSkip + 1)) {
@@ -65,21 +66,13 @@ http.createServer((req, res) => {
 
             const boldedText = splittedText.join(' ')
 
-
-
-
-
-
-            // const boldedText = execSync(`echo "${body}" | node app`).toString()
-            // aqui tenho que processar o texto
-
             console.log('boldedText =', boldedText)
 
             res.writeHead(200, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
                 data: {
                     message: 'Bolded text successfully!',
-                    body: boldedText
+                    text: boldedText
                 }
             }))
         })
