@@ -8,6 +8,7 @@ const executeTest = testOptions => {
     const testName = testOptions.testName
     const postData = testOptions.postData
     const expectedBody = testOptions.expectedBody
+    const expectedHttpStatusCode = testOptions.httpStatusCode
 
     const options = {
         hostname: 'localhost',
@@ -24,7 +25,7 @@ const executeTest = testOptions => {
         res.on('data', (chunk) => {
             const boldedText = JSON.parse(chunk).data.text
 
-            if (expectedBody === boldedText) {
+            if (expectedBody === boldedText && res.statusCode === expectedHttpStatusCode) {
                 process.stderr.write(`\x1b[32m${testName} successful!\x1b[0m\n`)
             } else {
                 process.stderr.write(`\x1b[31;1m${testName} failed!\x1b[0m\n`)
@@ -45,7 +46,8 @@ const executeTest = testOptions => {
 const testOptions = {
     testName: 'shouldReturnBoldedTextProperly',
     postData: JSON.stringify({ text: 'texto qualquer para teste' }),
-    expectedBody: '\x1b[1mtex\x1b[0mto \x1b[1mqual\x1b[0mquer \x1b[1mpa\x1b[0mra \x1b[1mtes\x1b[0mte'
+    expectedBody: '\x1b[1mtex\x1b[0mto \x1b[1mqual\x1b[0mquer \x1b[1mpa\x1b[0mra \x1b[1mtes\x1b[0mte',
+    httpStatusCode: 200
 }
 executeTest(testOptions)
 
@@ -115,11 +117,11 @@ executeTest(testOptions)
 
 testOptions.testName = 'shouldBoldSkippingTwoWords'
 testOptions.postData = JSON.stringify({
-    text: 'texto qualquer para teste que deve formatar uma palavra a cada 4 palavras',
+    text: 'texto qualquer para teste que deve formatar uma palavra a cada 2 palavras',
     percentageToBold: 100,
     wordsToSkip: 2
 })
-testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para \x1b[1mteste\x1b[0m que deve \x1b[1mformatar\x1b[0m uma palavra \x1b[1ma\x1b[0m cada 4 \x1b[1mpalavras\x1b[0m'
+testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para \x1b[1mteste\x1b[0m que deve \x1b[1mformatar\x1b[0m uma palavra \x1b[1ma\x1b[0m cada 2 \x1b[1mpalavras\x1b[0m'
 executeTest(testOptions)
 
 testOptions.testName = 'shouldBoldSkippingFourWords'
@@ -129,6 +131,17 @@ testOptions.postData = JSON.stringify({
     wordsToSkip: 4
 })
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para teste que \x1b[1mdeve\x1b[0m formatar uma palavra a \x1b[1mcada\x1b[0m 4 palavras'
+executeTest(testOptions)
+
+testOptions.testName = 'shouldReturnBadRequestWhenWordsToSkipIsNegative'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer',
+    percentageToBold: 100,
+    wordsToSkip: -2
+})
+
+testOptions.expectedBody = 'wordsToSkip can not be minor then 0'
+testOptions.httpStatusCode = 404
 executeTest(testOptions)
 
 //console.log(server.pid)
