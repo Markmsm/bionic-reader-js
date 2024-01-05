@@ -105,5 +105,14 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m \x1b[1mqualquer\x1b[0m \x1b[1mpara\x1b[0m \x1b[1mteste\x1b[0m'
 executeTest(testOptions)
 
+testOptions.testName = 'shouldBoldSkippingXWords'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer para teste que deve formatar uma palavra a cada 4 palavras',
+    percentageToBold: 100,
+    wordsToSkip: 4
+})
+testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para teste que \x1b[1mdeve\x1b[0m formatar uma palavra a \x1b[1mcada\x1b[0m 4 palavras'
+executeTest(testOptions)
+
 //console.log(server.pid)
 //server.kill()
