@@ -97,7 +97,7 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = '(<b>1</b>) [<b>1</b>2] {<b>12</b>3} (<b>12</b>34) [<b>12345</b>67890]'
 executeTest(testOptions)
 
-testOptions.testName = 'shouldBoldSpecificPercentageOfEachWord'
+testOptions.testName = 'shouldBoldOneHundredPercentageOfEachWord'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste',
     percentageToBold: 100
@@ -113,7 +113,16 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = '\x1b[1mtext\x1b[0mo \x1b[1mqualqu\x1b[0mer \x1b[1mpar\x1b[0ma \x1b[1mtest\x1b[0me'
 executeTest(testOptions)
 
-testOptions.testName = 'shouldBoldSkippingXWords'
+testOptions.testName = 'shouldBoldSkippingTwoWords'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer para teste que deve formatar uma palavra a cada 4 palavras',
+    percentageToBold: 100,
+    wordsToSkip: 2
+})
+testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para \x1b[1mteste\x1b[0m que deve \x1b[1mformatar\x1b[0m uma palavra \x1b[1ma\x1b[0m cada 4 \x1b[1mpalavras\x1b[0m'
+executeTest(testOptions)
+
+testOptions.testName = 'shouldBoldSkippingFourWords'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste que deve formatar uma palavra a cada 4 palavras',
     percentageToBold: 100,
