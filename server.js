@@ -6,11 +6,10 @@ http.createServer((req, res) => {
             const body = JSON.parse(data)
             const textToBold = body.text
             const fileType = body.fileType
+            const percentageToBold = body.percentageToBold || 50
 
             console.log('textToBold =', textToBold)
-
-            // const percentageToBold = actionParameters.get('-f') || 50
-            const percentageToBold = 50
+            
             // const wordsToSkip = Number(actionParameters.get('-j') || 0)
             const wordsToSkip = Number(0)
             const splittedText = textToBold.split(' ')
