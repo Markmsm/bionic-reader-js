@@ -97,10 +97,13 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = '(<b>1</b>) [<b>1</b>2] {<b>12</b>3} (<b>12</b>34) [<b>12345</b>67890]'
 executeTest(testOptions)
 
-// testOptions.testName = 'shouldBoldDisregardingWrappers'
-// testOptions.postData = JSON.stringify({ text: '(1) [12] {123} (1234) [1234567890]' })
-// testOptions.expectedBody = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]'
+testOptions.testName = 'shouldBoldSpecificPercentageOfWords'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer para teste',
+    percentageToBold: 100
+})
+testOptions.expectedBody = '\x1b[1mtexto\x1b[0m \x1b[1mqualquer\x1b[0m \x1b[1mpara\x1b[0m \x1b[1mteste\x1b[0m'
+executeTest(testOptions)
 
-// executeTest(testOptions)
 //console.log(server.pid)
 //server.kill()
