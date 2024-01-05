@@ -84,5 +84,5 @@ A aplicação deve:
 - [ ] fazer com que todas as requisições sejam logadas
 - [x] essa api vai ter um endpoint [POST] / que recebe o texto pelo body e usa o bionic-reader pra converter
 - [x] Deve receber o tipo de arquivo de saída para formatação
-- [ ] Deve receber o percentil da palavra a ser formatada
+- [x] Deve receber o percentil da palavra a ser formatada
 - [ ] Deve receber a quantidade de palavras a pular a cada palavra formatada
