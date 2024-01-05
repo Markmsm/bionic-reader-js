@@ -10,6 +10,18 @@ http.createServer((req, res) => {
             const wordsToSkip = Number(body.wordsToSkip || 0)
             const splittedText = textToBold.split(' ')
 
+            if (wordsToSkip < 0) {
+                res.writeHead(404, { 'Content-Type': 'application/json' })
+                res.end(JSON.stringify({
+                    data: {
+                        message: 'Error!',
+                        text: 'wordsToSkip can not be minor then 0'
+                    }
+                }))
+                
+                return
+            }
+
             console.log('textToBold =', textToBold)
 
             const boldWord = (word, prefix = '', suffix = '') => {
@@ -39,7 +51,7 @@ http.createServer((req, res) => {
                 const boldLength = Math.round((word.length * percentageToBold) / 100)
                 const partOfWordToBold = word.slice(0, boldLength)
                 const partOfWordToNotBold = word.slice(boldLength)
-                
+
                 switch (fileType) {
                     case 'txt':
                         return `${prefix}<b>${partOfWordToBold}</b>${partOfWordToNotBold}${suffix}`
