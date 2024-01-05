@@ -97,12 +97,20 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = '(<b>1</b>) [<b>1</b>2] {<b>12</b>3} (<b>12</b>34) [<b>12345</b>67890]'
 executeTest(testOptions)
 
-testOptions.testName = 'shouldBoldSpecificPercentageOfWords'
+testOptions.testName = 'shouldBoldSpecificPercentageOfEachWord'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste',
     percentageToBold: 100
 })
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m \x1b[1mqualquer\x1b[0m \x1b[1mpara\x1b[0m \x1b[1mteste\x1b[0m'
+executeTest(testOptions)
+
+testOptions.testName = 'shouldBoldEightyPercentageOfEachWord'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer para teste',
+    percentageToBold: 80
+})
+testOptions.expectedBody = '\x1b[1mtext\x1b[0mo \x1b[1mqualqu\x1b[0mer \x1b[1mpar\x1b[0ma \x1b[1mtest\x1b[0me'
 executeTest(testOptions)
 
 testOptions.testName = 'shouldBoldSkippingXWords'
