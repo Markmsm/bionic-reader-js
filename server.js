@@ -7,12 +7,10 @@ http.createServer((req, res) => {
             const textToBold = body.text
             const fileType = body.fileType
             const percentageToBold = body.percentageToBold || 50
+            const wordsToSkip = Number(body.wordsToSkip || 0)
+            const splittedText = textToBold.split(' ')
 
             console.log('textToBold =', textToBold)
-            
-            // const wordsToSkip = Number(actionParameters.get('-j') || 0)
-            const wordsToSkip = Number(0)
-            const splittedText = textToBold.split(' ')
 
             const boldWord = (word, prefix = '', suffix = '') => {
                 const regexForPunctuationAtEnd = /[^\w]$/
