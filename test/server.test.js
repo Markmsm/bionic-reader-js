@@ -102,7 +102,7 @@ executeTest(testOptions)
 testOptions.testName = 'shouldBoldOneHundredPercentageOfEachWord'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste',
-    percentageToBold: 100
+    percentageOfWordToBold: 100
 })
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m \x1b[1mqualquer\x1b[0m \x1b[1mpara\x1b[0m \x1b[1mteste\x1b[0m'
 executeTest(testOptions)
@@ -110,7 +110,7 @@ executeTest(testOptions)
 testOptions.testName = 'shouldBoldEightyPercentageOfEachWord'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste',
-    percentageToBold: 80
+    percentageOfWordToBold: 80
 })
 testOptions.expectedBody = '\x1b[1mtext\x1b[0mo \x1b[1mqualqu\x1b[0mer \x1b[1mpar\x1b[0ma \x1b[1mtest\x1b[0me'
 executeTest(testOptions)
@@ -118,7 +118,7 @@ executeTest(testOptions)
 testOptions.testName = 'shouldBoldSkippingTwoWords'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste que deve formatar uma palavra a cada 2 palavras',
-    percentageToBold: 100,
+    percentageOfWordToBold: 100,
     wordsToSkip: 2
 })
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para \x1b[1mteste\x1b[0m que deve \x1b[1mformatar\x1b[0m uma palavra \x1b[1ma\x1b[0m cada 2 \x1b[1mpalavras\x1b[0m'
@@ -127,7 +127,7 @@ executeTest(testOptions)
 testOptions.testName = 'shouldBoldSkippingFourWords'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer para teste que deve formatar uma palavra a cada 4 palavras',
-    percentageToBold: 100,
+    percentageOfWordToBold: 100,
     wordsToSkip: 4
 })
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para teste que \x1b[1mdeve\x1b[0m formatar uma palavra a \x1b[1mcada\x1b[0m 4 palavras'
@@ -136,7 +136,7 @@ executeTest(testOptions)
 testOptions.testName = 'shouldReturnBadRequestWhenWordsToSkipIsNegative'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer',
-    percentageToBold: 100,
+    percentageOfWordToBold: 100,
     wordsToSkip: -2
 })
 
