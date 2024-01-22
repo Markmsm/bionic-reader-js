@@ -23,8 +23,6 @@ http.createServer((req, res) => {
                 return
             }
 
-            console.log('textToBold =', textToProcess)
-
             const processOptions = {
                 textToProcess,
                 percentageOfWordToBold,
@@ -32,8 +30,6 @@ http.createServer((req, res) => {
                 fileType,
             }
             const boldedText = processText(processOptions)
-
-            console.log('boldedText =', boldedText)
 
             res.writeHead(200, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
