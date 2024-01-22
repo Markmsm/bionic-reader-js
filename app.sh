@@ -6,7 +6,7 @@ if test "$FILE_CONTENT" = 'alias bionicrd="node $HOME/bionic-reader-js/app.js"';
 fi
 
 mkdir $HOME/bionic-reader-js
-cp -r ../bionic-reader-js/app.js ../bionic-reader-js/package.json $HOME/bionic-reader-js
+cp -r ./app.js ./package.json ./core.js $HOME/bionic-reader-js
 echo 'alias bionicrd="node $HOME/bionic-reader-js/app.js"' >> $HOME/.bashrc
 echo 'Instalation successful.
 Re-open terminal or run "source $HOME/.bashrc".
