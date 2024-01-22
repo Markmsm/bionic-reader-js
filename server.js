@@ -10,7 +10,6 @@ http.createServer((req, res) => {
             const fileType = body.fileType
             const percentageOfWordToBold = body.percentageOfWordToBold || 50
             const wordsToSkip = Number(body.wordsToSkip || 0)
-            
 
             if (wordsToSkip < 0) {
                 res.writeHead(404, { 'Content-Type': 'application/json' })

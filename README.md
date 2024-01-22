@@ -69,7 +69,7 @@ A aplicação deve:
 - [x] Deve receber o tipo de arquivo de saída para formatação
 - [x] Deve receber o percentil da palavra a ser formatada
 - [x] Deve receber a quantidade de palavras a pular a cada palavra formatada
-- [ ] Separar core do restante
+- [x] Separar core do restante
 - [ ] Fazer com que todas as requisições sejam logadas
 - [ ] Dockerizar api
 - [ ] Usar testes do node
