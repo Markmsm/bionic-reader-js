@@ -70,6 +70,6 @@ A aplicação deve:
 - [x] Deve receber o percentil da palavra a ser formatada
 - [x] Deve receber a quantidade de palavras a pular a cada palavra formatada
 - [x] Separar core do restante
-- [ ] Fazer com que todas as requisições sejam logadas
+- [x] Fazer com que todas as requisições sejam logadas
 - [ ] Dockerizar api
 - [ ] Usar testes do node
