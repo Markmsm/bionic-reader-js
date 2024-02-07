@@ -133,14 +133,23 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = '\x1b[1mtexto\x1b[0m qualquer para teste que \x1b[1mdeve\x1b[0m formatar uma palavra a \x1b[1mcada\x1b[0m 4 palavras'
 executeTest(testOptions)
 
+testOptions.testName = 'shouldReturnBadRequestWhenPercentageOfWordToBoldIsNegative'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer',
+    percentageOfWordToBold: -10,
+    wordsToSkip: 2
+})
+testOptions.expectedBody = `percentageOfWordToBold can't be minor then 0`
+testOptions.httpStatusCode = 404
+executeTest(testOptions)
+
 testOptions.testName = 'shouldReturnBadRequestWhenWordsToSkipIsNegative'
 testOptions.postData = JSON.stringify({
     text: 'texto qualquer',
     percentageOfWordToBold: 100,
     wordsToSkip: -2
 })
-
-testOptions.expectedBody = 'wordsToSkip can not be minor then 0'
+testOptions.expectedBody = `wordsToSkip can't be minor then 0`
 testOptions.httpStatusCode = 404
 executeTest(testOptions)
 
