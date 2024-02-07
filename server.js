@@ -28,6 +28,8 @@ http.createServer((req, res) => {
             const percentageOfWordToBold = body.percentageOfWordToBold || 50
             const wordsToSkip = Number(body.wordsToSkip || 0)
             const url = `${req.headers.host}${req.url}`
+            let statusCode = ''
+            let error = ''
 
             try {
                 const processOptions = {
@@ -40,34 +42,27 @@ http.createServer((req, res) => {
                     message: 'Bolded text successfully!',
                     text: processText(processOptions)
                 }
-                const statusCode = 200
-
-                logRequest({
-                    url,
-                    httpMethod,
-                    statusCode,
-                    reqBody: body
-                })
+                statusCode = 200
 
                 res.writeHead(statusCode, { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({ data: responseBody }))
             } catch (e) {
                 console.log(e)
 
-                const statusCode = 404
-                const errorBody = {
+                statusCode = 404
+                error = {
                     message: 'Error!',
                     text: e.message
                 }
 
                 res.writeHead(statusCode, { 'Content-Type': 'application/json' })
-                res.end(JSON.stringify({ data: errorBody }))
-
+                res.end(JSON.stringify({ data: error }))
+            } finally {
                 logRequest({
                     url,
                     httpMethod,
                     statusCode,
-                    error: errorBody,
+                    error,
                     reqBody: body
                 })
             }
