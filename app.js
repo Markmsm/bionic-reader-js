@@ -50,7 +50,8 @@ const processText = text => {
     // Format text
     const percentageOfWordToBold = actionParameters.get('-f') || 50
     const wordsToSkip = Number(actionParameters.get('-j') || 0)
-    const fileType = actionParameters.get('-o') ? actionParameters.get('-o').split('.').pop() : undefined
+    const fileToSave = actionParameters.get('-o') && actionParameters.get('-o')
+    const fileType = fileToSave && fileToSave.split('.').pop()
 
     const processOptions = {
         textToProcess: text,
@@ -63,7 +64,7 @@ const processText = text => {
     // Write text
     if (actionParameters.has('-o')) {
         try {
-            fs.appendFileSync(actionParameters.get('-o'), boldedText)
+            fs.appendFileSync(fileToSave, boldedText)
         } catch (err) {
             logError('Error writing in file', err)
         }
