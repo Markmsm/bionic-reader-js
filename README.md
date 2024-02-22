@@ -1,14 +1,44 @@
+### Para criar uma imagem docker da api:
+    $ docker build -t IMAGE_NAME .
+
+Onde:
+- **-t** para especificar o nome da imagem a ser criada.
+- **IMAGE_NAME** é o nome da imagem a ser criada.
+- "**.**" ao final do comando para dizer ao docker que deve procurar o arquivo "**Dockerfile**" no diretório raíz.
+
+**Ex**:
+> [!TIP]
+> $ docker build -t bionic-reader-js .
+
+### Para rodar o container com a imagem da api:
+    $ docker run -dp LOCALHOST:LOCAL_PORT:CONTAINER_PORT IMAGE_NAME
+
+Onde:
+- **-d** para rodar em modo detach (rodar em background).
+- **-p** para criar um mapeamento de portas entre o host e o container.
+- **LOCALHOST** é o ip local.
+- **LOCAL_PORT** é a porta local que o container será exposto.
+- **CONTAINER_PORT** é a porta do container.
+- **IMAGE_NAME** é o nome da imagem criada com o comando docker build.
+
+> [!TIP]
+> $ docker run -dp 127.0.0.1:8080:8080 bionic-reader-js
+
 ### Para rodar os testes do server.js:
+Rodar o container com a imagem docker criada conforme explicado acima
+
+ou
+
     $ node server.js
+ou
+
     $ node test/server.test.js
 
 <span style="color:orange">**Obs:**</span> Após rodar os testes apenas encerrar o server.js ("**CTRL**" + "**C**") no terminal que está rodando.
 
 ### Para rodar os testes do app.js:
     $ npm t
-
 ou
-
     $ cd test/ && node app.test.js
 
 ### Para instalar o app.js:
