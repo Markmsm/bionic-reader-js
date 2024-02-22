@@ -30,11 +30,11 @@ Rodar o container com a imagem docker criada conforme explicado acima
 ou
 
     $ node server.js
-ou
+depois:
 
     $ node test/server.test.js
 
-<span style="color:orange">**Obs:**</span> Após rodar os testes apenas encerrar o server.js ("**CTRL**" + "**C**") no terminal que está rodando.
+<span style="color:orange">**Obs:**</span> Após rodar os testes apenas encerrar o server.js ("**CTRL**" + "**C**") no terminal que está rodando caso não tenha rodado via container.
 
 ### Para rodar os testes do app.js:
     $ npm t
@@ -101,5 +101,5 @@ A aplicação deve:
 - [x] Deve receber a quantidade de palavras a pular a cada palavra formatada
 - [x] Separar core do restante
 - [x] Fazer com que todas as requisições sejam logadas
-- [ ] Dockerizar api
+- [x] Dockerizar api
 - [ ] Usar testes do node
