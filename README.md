@@ -24,6 +24,12 @@ Onde:
 > [!TIP]
 > $ docker run -dp 127.0.0.1:8080:8080 bionic-reader-js
 
+### Para parar o container:
+    $ docker kill CONTAINER_NAME
+
+Onde:
+- **CONTAINER_NAME** é o nome do container.
+
 ### Para rodar os testes do server.js:
 Rodar o container com a imagem docker criada conforme explicado acima
 
