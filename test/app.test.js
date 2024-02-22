@@ -1,153 +1,110 @@
+import { describe, it } from 'node:test';
+import assert from 'assert'
 import { execSync } from 'child_process'
 import * as fs from 'fs'
 
 
-const failedTests = []
-const successfulTests = []
-const logFailedTest = testName => failedTests.push(testName)
-const logSuccessfulTest = testName => successfulTests.push(testName)
+describe('bionic reader app test', () => {
+    it('shouldBoldHalfWord', () => {
+        // Given:
+        const textToBold = `boldWord`
+        const expectedResult = `\x1b[1mbold\x1b[0mWord\n`
 
-const shouldBoldHalfWord = () => {
-    // Given:
-    const testName = shouldBoldHalfWord.name
-    const textToBold = `boldWord`
-    const expectedResult = `\x1b[1mbold\x1b[0mWord\n`
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult.toString())
+    })
 
-    // Then:
-    if (expectedResult === appResult.toString()) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+    it('shouldBoldRegardingEmailAsWord', () => {
+        // Given:
+        const textToBold = 'email.teste@emailteste.com'
+        const expectedResult = '\x1b[1memail.teste@e\x1b[0mmailteste.com\n'
 
-const shouldBoldRegardingEmailAsWord = () => {
-    // Given:
-    const testName = shouldBoldRegardingEmailAsWord.name
-    const textToBold = 'email.teste@emailteste.com'
-    const expectedResult = '\x1b[1memail.teste@e\x1b[0mmailteste.com\n'
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult)
+    })
 
-    // Then:
-    if (expectedResult === appResult) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+    it('shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction', () => {
+        // Given:
+        const wordToBold = 'boldWord.:'
+        const expectedResult = `\x1b[1mboldW\x1b[0mord.:\n`
 
-const shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction = () => {
-    // Given:
-    const testName = shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction.name
-    const wordToBold = 'boldWord.:'
-    const expectedResult = `\x1b[1mboldW\x1b[0mord.:\n`
+        // When:
+        const appResult = execSync(`echo "${wordToBold}" | node ../app`).toString()
 
-    // When:
-    const appResult = execSync(`echo "${wordToBold}" | node ../app`).toString()
-    
-    // Then:
-    if (expectedResult === appResult) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult)
+    })
 
-const shouldBoldTextDisregardingEllipsesAtInitOfPhrase = () => {
-    // Given:
-    const testName = shouldBoldTextDisregardingEllipsesAtInitOfPhrase.name
-    const textToBold = `...boldWord teste`
-    const expectedResult = `...\x1b[1mbold\x1b[0mWord \x1b[1mtes\x1b[0mte\n`
+    it('shouldBoldTextDisregardingEllipsesAtInitOfPhrase', () => {
+        // Given:
+        const textToBold = `...boldWord teste`
+        const expectedResult = `...\x1b[1mbold\x1b[0mWord \x1b[1mtes\x1b[0mte\n`
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // Then:
-    if (expectedResult === appResult.toString()) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult.toString())
+    })
 
-const shouldBoldTextDisregardingEllipsesAtEndOfPhrase = () => {
-    // Given:
-    const testName = shouldBoldTextDisregardingEllipsesAtEndOfPhrase.name
-    const textToBold = `boldWord teste...`
-    const expectedResult = `\x1b[1mbold\x1b[0mWord \x1b[1mtes\x1b[0mte...\n`
+    it('shouldBoldTextDisregardingEllipsesAtEndOfPhrase', () => {
+        // Given:
+        const textToBold = `boldWord teste...`
+        const expectedResult = `\x1b[1mbold\x1b[0mWord \x1b[1mtes\x1b[0mte...\n`
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // Then:
-    if (expectedResult === appResult.toString()) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult.toString())
+    })
 
-const shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord = () => {
-    // Given:
-    const testName = shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord.name
-    const textToBold = `...dos...`
-    const expectedResult = `...\x1b[1mdo\x1b[0ms...\n`
+    it('shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord', () => {
+        // Given:
+        const textToBold = `...dos...`
+        const expectedResult = `...\x1b[1mdo\x1b[0ms...\n`
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // Then:
-    if (expectedResult === appResult.toString()) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult.toString())
+    })
 
-const shouldBoldHalfWordDisregardingEllipsesWithWrappers = () => {
-    // Given:
-    const testName = shouldBoldHalfWordDisregardingEllipsesWithWrappers.name
-    const textToBold = `...(...reticências dentro e fora dos parênteses...)...`
-    const expectedResult = `...(...\x1b[1mreticê\x1b[0mncias \x1b[1mden\x1b[0mtro \x1b[1me\x1b[0m \x1b[1mfo\x1b[0mra \x1b[1mdo\x1b[0ms \x1b[1mparên\x1b[0mteses...)...\n`
+    it('shouldBoldHalfWordDisregardingEllipsesWithWrappers', () => {
+        // Given:
+        const textToBold = `...(...reticências dentro e fora dos parênteses...)...`
+        const expectedResult = `...(...\x1b[1mreticê\x1b[0mncias \x1b[1mden\x1b[0mtro \x1b[1me\x1b[0m \x1b[1mfo\x1b[0mra \x1b[1mdo\x1b[0ms \x1b[1mparên\x1b[0mteses...)...\n`
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // Then:
-    if (expectedResult === appResult.toString()) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult.toString())
+    })
 
-const shouldBoldDisregardingWrappers = () => {
-    // Given:
-    const testName = shouldBoldDisregardingWrappers.name
-    const textToBold = '(1) [12] {123} (1234) [1234567890]'
-    const expectedResult = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]\n'
+    it('shouldBoldDisregardingWrappers', () => {
+        // Given:
+        const textToBold = '(1) [12] {123} (1234) [1234567890]'
+        const expectedResult = '(\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]\n'
 
-    // When:
-    const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
+        // When:
+        const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
-    // Then:
-    if (expectedResult === appResult) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult)
+    })
 
-const shouldBoldHalfEveryWordOfTextFile = () => {
-    // Given:
-    const testName = shouldBoldHalfEveryWordOfTextFile.name
-    const fileToReadContent = 'file_to_read_test.txt'
-    const expectedResult = `\x1b[1mtex\x1b[0mto \x1b[1mpa\x1b[0mra \x1b[1mtes\x1b[0mtar \x1b[1mtex\x1b[0mto
+    it('shouldBoldHalfEveryWordOfTextFile', () => {
+        // Given:
+        const fileToReadContent = 'file_to_read_test.txt'
+        const expectedResult = `\x1b[1mtex\x1b[0mto \x1b[1mpa\x1b[0mra \x1b[1mtes\x1b[0mtar \x1b[1mtex\x1b[0mto
 \x1b[1mque\x1b[0mbra \x1b[1md\x1b[0me \x1b[1mlin\x1b[0mha \x1b[1mpa\x1b[0mra \x1b[1mtes\x1b[0mtar
 \x1b[1mtex\x1b[0mto       \x1b[1mco\x1b[0mm        \x1b[1mvár\x1b[0mios      \x1b[1mespa\x1b[0mços
 \x1b[1mtex\x1b[0mto \x1b[1mco\x1b[0mm   \x1b[1mta\x1b[0mb (\x1b[1mta\x1b[0mb \x1b[1mant\x1b[0mes \x1b[1md\x1b[0ma \x1b[1mpala\x1b[0mvra \x1b[1mta\x1b[0mb)
@@ -173,58 +130,28 @@ const shouldBoldHalfEveryWordOfTextFile = () => {
 
 (\x1b[1m1\x1b[0m) [\x1b[1m1\x1b[0m2] {\x1b[1m12\x1b[0m3} (\x1b[1m12\x1b[0m34) [\x1b[1m12345\x1b[0m67890]`
 
-    // When:
-    const appResult = execSync(`node ../app ${fileToReadContent}`).toString()
+        // When:
+        const appResult = execSync(`node ../app ${fileToReadContent}`).toString()
 
-    // Then:
-    if (expectedResult === appResult.toString()) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
-}
+        // Then:
+        assert.deepStrictEqual(expectedResult, appResult.toString())
+    })
 
-const shouldSaveInFileIfSaveInFileParameter = () => {
-    // Given:
-    const testName = shouldSaveInFileIfSaveInFileParameter.name
-    const textToBold = `boldWord`
-    const expectedResult = `<b>bold</b>Word\n`
-    const newFileName = 'new_file.txt'
+    it('shouldSaveInFileIfSaveInFileParameter', () => {
+        // Given:
+        const textToBold = `boldWord`
+        const expectedResult = `<b>bold</b>Word\n`
+        const newFileName = 'new_file.txt'
 
-    // When:
-    execSync(`echo "${textToBold}" | node ../app -o ${newFileName}`)
+        // When:
+        execSync(`echo "${textToBold}" | node ../app -o ${newFileName}`)
 
-    // Then:
-    const newFileContent = fs.readFileSync(newFileName, 'utf-8')
-    
-    if (expectedResult === newFileContent) {
-        logSuccessfulTest(testName)
-    } else {
-        logFailedTest(testName)
-    }
+        // Then:
+        const newFileContent = fs.readFileSync(newFileName, 'utf-8')
 
-    execSync(`rm ${newFileName}`)
-}
+        assert.deepStrictEqual(expectedResult, newFileContent)
 
-shouldBoldHalfWord()
-shouldBoldRegardingEmailAsWord()
-shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction()
-shouldBoldTextDisregardingEllipsesAtInitOfPhrase()
-shouldBoldTextDisregardingEllipsesAtEndOfPhrase()
-shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord()
-shouldBoldHalfWordDisregardingEllipsesWithWrappers()
-shouldBoldDisregardingWrappers()
-shouldBoldHalfEveryWordOfTextFile()
-shouldSaveInFileIfSaveInFileParameter()
+        execSync(`rm ${newFileName}`)
+    })
+})
 
-if (successfulTests) {
-    for (const testName of successfulTests) {
-        process.stderr.write(`\x1b[32m${testName} successful!\x1b[0m\n`)
-    }
-}
-
-if (failedTests) {
-    for (const testName of failedTests) {
-        process.stderr.write(`\x1b[31;1m${testName} failed!\x1b[0m\n`)
-    }
-}
