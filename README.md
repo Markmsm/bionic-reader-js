@@ -30,7 +30,13 @@ Onde:
 Onde:
 - **CONTAINER_NAME** é o nome do container.
 
-### Para rodar os testes do server.js:
+### Para rodar testes unitários e do app (não roda testes da API):
+    $ npm t
+
+### Para rodar testes unitários:
+    $ node test/core.test.js
+
+### Para rodar testes do server.js:
 Rodar o container com a imagem docker criada conforme explicado acima
 
 ou
@@ -42,9 +48,7 @@ depois:
 
 <span style="color:orange">**Obs:**</span> Após rodar os testes apenas encerrar o server.js ("**CTRL**" + "**C**") no terminal que está rodando caso não tenha rodado via container.
 
-### Para rodar os testes do app.js:
-    $ npm t
-ou
+### Para rodar testes do app.js:
     $ cd test/ && node app.test.js
 
 ### Para instalar o app.js:
