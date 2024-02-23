@@ -65,5 +65,14 @@ testOptions.postData = JSON.stringify({
 testOptions.expectedBody = `wordsToSkip can't be minor then 0`
 executeTest(testOptions)
 
+testOptions.testName = 'shouldReturnOkWhenBoldTextSuccefully'
+testOptions.postData = JSON.stringify({
+    text: 'texto qualquer',
+    percentageOfWordToBold: 50
+})
+testOptions.expectedBody = `\x1b[1mtex\x1b[0mto \x1b[1mqual\x1b[0mquer`
+testOptions.httpStatusCode = 200
+executeTest(testOptions)
+
 //console.log(server.pid)
 //server.kill()
