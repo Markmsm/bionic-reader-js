@@ -1,6 +1,6 @@
 const processText = (options) => {
     const textToProcess = options.textToProcess
-    const percentageOfWordToBold = options.percentageOfWordToBold || 0
+    const percentageOfWordToBold = options.percentageOfWordToBold || 50
     const wordsToSkip = options.wordsToSkip || 0
     const fileType = options.fileType
 
