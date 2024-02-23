@@ -5,11 +5,11 @@ const processText = (options) => {
     const fileType = options.fileType
 
     if (percentageOfWordToBold < 0) {
-        throw new Error(`percentageOfWordToBold can't be minor then 0`)
+        throw new Error(`percentageOfWordToBold can't be minor than 0`)
     }
 
     if (wordsToSkip < 0) {
-        throw new Error(`wordsToSkip can't be minor then 0`)
+        throw new Error(`wordsToSkip can't be minor than 0`)
     }
 
     const boldWord = (word, prefix = '', suffix = '') => {
