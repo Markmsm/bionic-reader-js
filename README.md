@@ -112,4 +112,4 @@ A aplicação deve:
 - [x] Separar core do restante
 - [x] Fazer com que todas as requisições sejam logadas
 - [x] Dockerizar api
-- [ ] Usar testes do node
+- [x] Usar testes do node
