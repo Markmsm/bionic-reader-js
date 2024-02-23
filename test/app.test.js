@@ -14,7 +14,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult.toString())
+        assert.deepStrictEqual(appResult.toString(), expectedResult)
     })
 
     it('shouldBoldRegardingEmailAsWord', () => {
@@ -26,7 +26,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult)
+        assert.deepStrictEqual(appResult, expectedResult)
     })
 
     it('shouldBoldPenultimatePunctuationWhenHasTwoFinalPonctuaction', () => {
@@ -38,7 +38,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${wordToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult)
+        assert.deepStrictEqual(appResult, expectedResult)
     })
 
     it('shouldBoldTextDisregardingEllipsesAtInitOfPhrase', () => {
@@ -50,7 +50,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult.toString())
+        assert.deepStrictEqual(appResult.toString(), expectedResult)
     })
 
     it('shouldBoldTextDisregardingEllipsesAtEndOfPhrase', () => {
@@ -62,7 +62,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult.toString())
+        assert.deepStrictEqual(appResult.toString(), expectedResult)
     })
 
     it('shouldBoldTextDisregardingEllipsesAtInitAndEndOfWord', () => {
@@ -74,7 +74,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult.toString())
+        assert.deepStrictEqual(appResult.toString(), expectedResult)
     })
 
     it('shouldBoldHalfWordDisregardingEllipsesWithWrappers', () => {
@@ -86,7 +86,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult.toString())
+        assert.deepStrictEqual(appResult.toString(), expectedResult)
     })
 
     it('shouldBoldDisregardingWrappers', () => {
@@ -98,7 +98,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`echo "${textToBold}" | node ../app`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult)
+        assert.deepStrictEqual(appResult, expectedResult)
     })
 
     it('shouldBoldHalfEveryWordOfTextFile', () => {
@@ -134,7 +134,7 @@ describe('bionic reader app test', () => {
         const appResult = execSync(`node ../app ${fileToReadContent}`).toString()
 
         // Then:
-        assert.deepStrictEqual(expectedResult, appResult.toString())
+        assert.deepStrictEqual(appResult.toString(), expectedResult)
     })
 
     it('shouldSaveInFileIfSaveInFileParameter', () => {
@@ -149,7 +149,7 @@ describe('bionic reader app test', () => {
         // Then:
         const newFileContent = fs.readFileSync(newFileName, 'utf-8')
 
-        assert.deepStrictEqual(expectedResult, newFileContent)
+        assert.deepStrictEqual(newFileContent, expectedResult)
 
         execSync(`rm ${newFileName}`)
     })
