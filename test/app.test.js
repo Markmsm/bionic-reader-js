@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'node:test'
 import assert from 'assert'
 import { execSync } from 'child_process'
 import * as fs from 'fs'
