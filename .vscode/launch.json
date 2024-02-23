@@ -22,6 +22,16 @@
             ],
             "program": "${workspaceFolder}/server.js",
             "console": "integratedTerminal",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Unit tests",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/test/core.test.js",
+            "console": "integratedTerminal",
         }
     ]
 }
