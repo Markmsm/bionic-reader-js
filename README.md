@@ -1,3 +1,8 @@
+### Para rodar a api com docker compose
+##### Executar o seguinte comando a partir da raiz do projeto:
+
+    $ docker compose up -d
+
 ### Para criar uma imagem docker da api:
     $ docker build -t IMAGE_NAME .
 
@@ -25,7 +30,7 @@ Onde:
 > $ docker run -dp 127.0.0.1:8080:8080 bionic-reader-js
 
 ### Para parar o container:
-    $ docker kill CONTAINER_NAME
+    $ docker stop CONTAINER_NAME
 
 Onde:
 - **CONTAINER_NAME** é o nome do container.
